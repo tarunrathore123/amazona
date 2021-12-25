@@ -39,12 +39,12 @@ userRouter.post(
 userRouter.post(
   "/register",
   expressAsyncHandler(async (req, res) => {
-    const user = await new User({
+    const user = new User({
       name: req.body.name,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 8),
     });
-    const createdUser = user.save();
+    const createdUser = await user.save();
     res.send({
       _id: createdUser._id,
       name: createdUser.name,

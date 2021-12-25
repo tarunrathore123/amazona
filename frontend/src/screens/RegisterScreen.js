@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { signin } from "../actions/userActions";
+import { register } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 
@@ -15,13 +15,17 @@ export default function RegisterScreen(props) {
     ? props.location.search.split("=")[1]
     : "/";
 
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo, loading, error } = userSignin;
+  const userRegister = useSelector((state) => state.userRegister);
+  const { userInfo, loading, error } = userRegister;
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(signin(email, password));
+    if (password !== confirmPassword) {
+      alert("Password and confirm password are not match");
+    } else {
+      dispatch(register(name, email, password));
+    }
   };
   useEffect(() => {
     if (userInfo) {
@@ -37,7 +41,7 @@ export default function RegisterScreen(props) {
         {loading && <LoadingBox></LoadingBox>}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
         <div>
-          <label htmlFor="name">Email name</label>
+          <label htmlFor="name">Enter name</label>
           <input
             type="text"
             id="name"
@@ -85,7 +89,8 @@ export default function RegisterScreen(props) {
         <div>
           <label />
           <div>
-            New customer? <Link to="/register">Create your account</Link>
+            Already have an account?{" "}
+            <Link to={`/signin?redirect=${redirect}`}>Sign In</Link>
           </div>
         </div>
       </form>
