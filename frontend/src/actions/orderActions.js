@@ -156,7 +156,7 @@ export const deliverOrder = (orderId) => async (dispatch, getState) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = Axios.put(
+    const { data } = await Axios.put(
       `/api/orders/${orderId}/deliver`,
       {},
       {
