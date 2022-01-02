@@ -4,14 +4,13 @@ import { listOrderMine } from "../actions/orderActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 
-const OrderHistoryScreen = (props) => {
+export default function OrderHistoryScreen(props) {
   const orderMineList = useSelector((state) => state.orderMineList);
   const { loading, error, orders } = orderMineList;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listOrderMine());
   }, [dispatch]);
-
   return (
     <div>
       <h1>Order History</h1>
@@ -61,5 +60,4 @@ const OrderHistoryScreen = (props) => {
       )}
     </div>
   );
-};
-export default OrderHistoryScreen;
+}

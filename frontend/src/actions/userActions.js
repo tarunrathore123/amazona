@@ -60,28 +60,24 @@ export const signout = () => (dispatch) => {
   localStorage.removeItem("shippingAddress");
   dispatch({ type: USER_SIGNOUT });
 };
-
 export const detailsUser = (userId) => async (dispatch, getState) => {
   dispatch({ type: USER_DETAILS_REQUEST, payload: userId });
+  const {
+    userSignin: { userInfo },
+  } = getState();
   try {
-    const {
-      userSignin: { userInfo },
-    } = getState();
     const { data } = await Axios.get(`/api/users/${userId}`, {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
-    dispatch({
-      type: USER_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: USER_DETAILS_FAIL, payload: message });
   }
 };
-
 export const updateUserProfile = (user) => async (dispatch, getState) => {
   dispatch({ type: USER_UPDATE_PROFILE_REQUEST, payload: user });
   const {

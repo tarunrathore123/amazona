@@ -60,7 +60,6 @@ export default function ProductEditScreen(props) {
       })
     );
   };
-
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [errorUpload, setErrorUpload] = useState("");
 
@@ -91,11 +90,9 @@ export default function ProductEditScreen(props) {
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Edit Product {productId}</h1>
-          {loadingUpdate && <LoadingBox></LoadingBox>}
-          {errorUpdate && (
-            <MessageBox variant="danger">{errorUpdate}</MessageBox>
-          )}
         </div>
+        {loadingUpdate && <LoadingBox></LoadingBox>}
+        {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
         {loading ? (
           <LoadingBox></LoadingBox>
         ) : error ? (

@@ -42,6 +42,7 @@ export default function ProductListScreen(props) {
     }
     dispatch(listProducts());
   }, [createdProduct, dispatch, props.history, successCreate, successDelete]);
+
   const deleteHandler = (product) => {
     if (window.confirm("Are you sure to delete?")) {
       dispatch(deleteProduct(product._id));
@@ -58,8 +59,10 @@ export default function ProductListScreen(props) {
           Create Product
         </button>
       </div>
+
       {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
+
       {loadingCreate && <LoadingBox></LoadingBox>}
       {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
       {loading ? (

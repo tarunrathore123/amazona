@@ -1,10 +1,9 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import Order from "../models/orderModel.js";
-import { isAuth, isAdmin } from "../utils.js";
+import { isAdmin, isAuth } from "../utils.js";
 
 const orderRouter = express.Router();
-
 orderRouter.get(
   "/",
   isAuth,
@@ -14,7 +13,6 @@ orderRouter.get(
     res.send(orders);
   })
 );
-
 orderRouter.get(
   "/mine",
   isAuth,
@@ -83,6 +81,7 @@ orderRouter.put(
     }
   })
 );
+
 orderRouter.delete(
   "/:id",
   isAuth,
@@ -97,6 +96,7 @@ orderRouter.delete(
     }
   })
 );
+
 orderRouter.put(
   "/:id/deliver",
   isAuth,
@@ -114,4 +114,5 @@ orderRouter.put(
     }
   })
 );
+
 export default orderRouter;

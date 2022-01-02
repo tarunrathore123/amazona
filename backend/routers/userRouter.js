@@ -59,19 +59,18 @@ userRouter.get(
   "/:id",
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
-    if (user) res.send(user);
-    else {
-      res.status(404).send({ message: "User not found" });
+    if (user) {
+      res.send(user);
+    } else {
+      res.status(404).send({ message: "User Not Found" });
     }
   })
 );
-
 userRouter.put(
   "/profile",
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
-    console.log(req);
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
@@ -89,5 +88,4 @@ userRouter.put(
     }
   })
 );
-
 export default userRouter;

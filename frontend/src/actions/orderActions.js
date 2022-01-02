@@ -67,6 +67,7 @@ export const detailsOrder = (orderId) => async (dispatch, getState) => {
     dispatch({ type: ORDER_DETAILS_FAIL, payload: message });
   }
 };
+
 export const payOrder =
   (order, paymentResult) => async (dispatch, getState) => {
     dispatch({ type: ORDER_PAY_REQUEST, payload: { order, paymentResult } });
@@ -90,7 +91,6 @@ export const payOrder =
       dispatch({ type: ORDER_PAY_FAIL, payload: message });
     }
   };
-
 export const listOrderMine = () => async (dispatch, getState) => {
   dispatch({ type: ORDER_MINE_LIST_REQUEST });
   const {
@@ -111,7 +111,6 @@ export const listOrderMine = () => async (dispatch, getState) => {
     dispatch({ type: ORDER_MINE_LIST_FAIL, payload: message });
   }
 };
-
 export const listOrders = () => async (dispatch, getState) => {
   dispatch({ type: ORDER_LIST_REQUEST });
   const {
@@ -156,7 +155,7 @@ export const deliverOrder = (orderId) => async (dispatch, getState) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.put(
+    const { data } = Axios.put(
       `/api/orders/${orderId}/deliver`,
       {},
       {
