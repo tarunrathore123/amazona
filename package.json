@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build":"cd frontend && npm install && npm run build",
     "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
   },
   "repository": {
@@ -29,5 +30,6 @@
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
     "socket.io": "^4.4.0"
-  }
+  },
+  "engines": {"node": "12.4.0","npm":"6.9.0"}
 }

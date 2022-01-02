@@ -4,7 +4,6 @@ import { deleteOrder, listOrders } from "../actions/orderActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { ORDER_DELETE_RESET } from "../constants/orderConstants";
-import { withStatement } from "c:/users/tarun/appdata/local/microsoft/typescript/4.5/node_modules/@babel/types/lib/index";
 
 export default function OrderListScreen(props) {
   const orderList = useSelector((state) => state.orderList);
@@ -21,7 +20,6 @@ export default function OrderListScreen(props) {
     dispatch(listOrders());
   }, [dispatch, successDelete]);
   const deleteHandler = (order) => {
-    // TODO: delete handler
     if (window.confirm("Are you sure to delete?")) {
       dispatch(deleteOrder(order._id));
     }
@@ -29,6 +27,8 @@ export default function OrderListScreen(props) {
   return (
     <div>
       <h1>Orders</h1>
+      {loadingDelete && <LoadingBox></LoadingBox>}
+      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -50,7 +50,7 @@ export default function OrderListScreen(props) {
             {orders.map((order) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
-                <td>{order.user.name}</td>{" "}
+                <td>{order.user.name}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>{order.totalPrice.toFixed(2)}</td>
                 <td>{order.isPaid ? order.paidAt.substring(0, 10) : "No"}</td>
@@ -72,7 +72,7 @@ export default function OrderListScreen(props) {
                   <button
                     type="button"
                     className="small"
-                    onclick={() => deleteHandler(order)}
+                    onClick={() => deleteHandler(order)}
                   >
                     Delete
                   </button>
